@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yerleşim Simülasyonu</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .hidden { display: none; }
+    button { margin-top: 10px; padding: 8px 12px; }
+    input[type="text"] { padding: 6px; width: 200px; }
+    h1, h2 { color: #333; }
+  </style>
+</head>
+<body>
+
+  <!-- Aşama 1 -->
+  <div id="stage1">
+    <h1>Hoşgeldiniz, Geleceğiniz Emin Ellerde</h1>
+    <button id="startBtn">Başlamak için tıklayın</button>
+  </div>
+
+  <!-- Aşama 2 -->
+  <div id="stage2" class="hidden">
+    <h2>1. Puanınız kaç?</h2>
+    <input type="text" id="score" placeholder="Puanınızı girin">
+    <h2>2. Yerleşmek istediğiniz yer neresi?</h2>
+    <input type="text" id="location" placeholder="Örneğin: İstanbul">
+    <br>
+    <button id="continueBtn">Devam et</button>
+  </div>
+
+  <!-- Aşama 3 -->
+  <div id="stage3" class="hidden">
+    <h2>Tanıdık var mı? (Dayı, amca, teyze, hala vb.)</h2>
+    <label><input type="radio" name="know" value="yes"> Evet</label><br>
+    <label><input type="radio" name="know" value="no"> Hayır</label><br>
+    <button id="nextBtn">Devam et</button>
+  </div>
+
+  <!-- Aşama 4: “Evet” cevabı -->
+  <div id="stage4" class="hidden">
+    <h1>Tebrikler, yerleştirildiniz!</h1>
+  </div>
+
+  <!-- Aşama 5: “Hayır” cevabı -->
+  <div id="stage5" class="hidden">
+    <h1>Malesef, tanıdığı olan yerleşti ama umudunuzu kesmeyin.</h1>
+  </div>
+
+  <script>
+    const stage1 = document.getElementById('stage1');
+    const stage2 = document.getElementById('stage2');
+    const stage3 = document.getElementById('stage3');
+    const stage4 = document.getElementById('stage4');
+    const stage5 = document.getElementById('stage5');
+
+    document.getElementById('startBtn').onclick = () => {
+      stage1.classList.add('hidden');
+      stage2.classList.remove('hidden');
+    };
+
+    document.getElementById('continueBtn').onclick = () => {
+      // (puan ve yer bilgisi burada kullanılmıyor, soruda belirtildiği gibi "önemsiz")
+      stage2.classList.add('hidden');
+      stage3.classList.remove('hidden');
+    };
+
+    document.getElementById('nextBtn').onclick = () => {
+      const selected = document.querySelector('input[name="know"]:checked');
+      if (!selected) {
+        alert('Lütfen bir seçenek seçin.');
+        return;
+      }
+      stage3.classList.add('hidden');
+      if (selected.value === 'yes') {
+        stage4.classList.remove('hidden');
+      } else {
+        stage5.classList.remove('hidden');
+      }
+    };
+  </script>
+
+</body>
+</html>
+
